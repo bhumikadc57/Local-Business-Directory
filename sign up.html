@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Owner Sign Up</title>
+    <!-- Poppins Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="style2.css">
+    <style>
+        /* Inline styles for simplicity */
+        .optional-button {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 10px 20px;
+            font-size: 14px;
+            color: #555;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .optional-button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <a href="#">Discover Locals</a>
+        </div>
+    </header>
+
+    <!-- Sign Up Form Section -->
+    <section class="signup-section">
+        <div class="signup-container">
+            <h2>Create Your Business Account</h2>
+            <form id="signup-form">
+                <!-- Existing Form Fields -->
+                <div class="form-group">
+                    <label for="business-name">Business Name:</label>
+                    <input type="text" id="business-name" name="business-name" placeholder="Enter your business name" required>
+                </div>
+                <div class="form-group">
+                    <label for="business-email">Business Email:</label>
+                    <input type="email" id="business-email" name="business-email" placeholder="Enter your email address" required>
+                </div>
+                <div class="form-group">
+                    <label for="business-contact">Contact Number:</label>
+                    <input type="tel" id="business-contact" name="business-contact" placeholder="Enter contact number" required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Business Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="cafe">Cafe</option>
+                        <option value="hospital">Hospital</option>
+                        <option value="grocery">Grocery</option>
+                        <option value="hotel">Hotel</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="business-photo">Business Photo URL:</label>
+                    <input type="url" id="business-photo" name="business-photo" placeholder="Enter the URL of your business photo" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
+                </div>
+                <button type="submit" class="button">Sign Up</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Display Business Details Section -->
+    <section id="business-details" class="business-details" style="display: none;">
+        <h2>Your Business Details</h2>
+        <div class="detail-card">
+            <img id="business-image" src="" alt="Business Photo" class="business-photo">
+            <p><strong>Business Name:</strong> <span id="display-business-name"></span></p>
+            <p><strong>Business Email:</strong> <span id="display-business-email"></span></p>
+            <p><strong>Contact Number:</strong> <span id="display-business-contact"></span></p>
+            <p><strong>Category:</strong> <span id="display-category"></span></p>
+            <p><strong>Photo URL:</strong> <a id="display-photo-url" href="" target="_blank">View Image</a></p>
+        </div>
+        <button id="add-menu-btn" class="optional-button">Add Menu (Optional)</button>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu-section" style="display: none;">
+        <h2>Add Menu Items</h2>
+        <form id="menu-form">
+            <div class="form-group">
+                <label for="menu-item">Menu Item:</label>
+                <input type="text" id="menu-item" placeholder="Enter a menu item">
+            </div>
+            <div class="form-group">
+                <label for="menu-price">Price:</label>
+                <input type="text" id="menu-price" placeholder="Enter item price">
+            </div>
+            <button type="submit" class="button">Add Item</button>
+        </form>
+        <ul id="menu-list"></ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Discover Locals. All rights reserved. <a href="#">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Handle Sign Up Form Submission
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const businessName = document.getElementById("business-name").value;
+            const businessEmail = document.getElementById("business-email").value;
+            const businessContact = document.getElementById("business-contact").value;
+            const category = document.getElementById("category").value;
+            const businessPhoto = document.getElementById("business-photo").value;
+            document.getElementById("display-business-name").textContent = businessName;
+            document.getElementById("display-business-email").textContent = businessEmail;
+            document.getElementById("display-business-contact").textContent = businessContact;
+            document.getElementById("display-category").textContent = category;
+            document.getElementById("display-photo-url").href = businessPhoto;
+            document.getElementById("business-image").src = businessPhoto;
+            document.getElementById("business-details").style.display = "block";
+            document.querySelector(".signup-section").style.display = "none";
+        });
+
+        // Handle "Add Menu (Optional)" Button Click
+        document.getElementById("add-menu-btn").addEventListener("click", function() {
+            document.getElementById("menu-section").style.display = "block";
+        });
+
+        // Handle Menu Form Submission
+        document.getElementById("menu-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const menuItem = document.getElementById("menu-item").value;
+            const menuPrice = document.getElementById("menu-price").value;
+            const menuList = document.getElementById("menu-list");
+            const listItem = document.createElement("li");
+            listItem.textContent = `${menuItem} - $${menuPrice}`;
+            menuList.appendChild(listItem);
+            document.getElementById("menu-form").reset();
+        });
+    </script>
+</body>
+</html>
